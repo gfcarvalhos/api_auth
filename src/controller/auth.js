@@ -1,10 +1,10 @@
 import userModel from '../models/user.js';
-import userService from '../services/userService.js';
+import { authenticate as authService } from '../services/auth.js';
 
 const autheticate = (req, res) => {
   try {
     const user = userModel(req.params);
-    const token = userService(user);
+    const token = authService(user);
     return res.status(200).json({ token: token });
   } catch (error) {
     return res
