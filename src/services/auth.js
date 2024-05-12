@@ -33,7 +33,7 @@ const generateToken = (username) => {
 const autheticated = (headers) => {
   try {
     const authorization = headers.authorization;
-    const token = authorization.split(' ')[2];
+    const token = authorization.split(' ')[1];
 
     const decoded = jwt.verify(token, process.env.SECRET, (err, decoded) => {
       if (err) {

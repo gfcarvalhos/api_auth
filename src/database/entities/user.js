@@ -6,4 +6,12 @@ const get = async (username, password) => {
     .where({ username: username, password: password });
 };
 
-export { get };
+const findAll = async (user) => {
+  return await connection('db_user').select('*');
+};
+
+const create = async (user) => {
+  return await connection('db_user').insert(user);
+};
+
+export { get, findAll, create };
