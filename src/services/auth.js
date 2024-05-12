@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { BadRequest, Unauthorized } from './exceptions/httpRequestError.js';
+import { get } from '../database/entities/user.js';
 
 dotenv.config();
 
@@ -9,8 +10,10 @@ dotenv.config();
  * @param {Object} user
  * @returns Token
  */
-const authenticate = (user) => {
-  if (user.username != 'gabriel' || user.password != '123') {
+const authenticate = async (user) => {
+  const [result] = await get(user.username, user.password);
+
+  if (!result) {
     throw new Unauthorized('Usuário não está autenticado');
   }
   return generateToken(user.username);
